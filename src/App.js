@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios'
 
 import View from './View';
 import Project from './Project';
@@ -6,6 +7,8 @@ import AddProjectForm from './AddProjectForm';
 import UpdateProjectForm from './UpdateProjectForm';
 
 import './App.css';
+
+var urlPrefix = 'http://localhost:4000/api'
 
 class  App extends Component {
 
@@ -31,6 +34,41 @@ class  App extends Component {
   }
   setActiveView = (view) => {
     this.setState({activeView:view})
+  }
+
+  //CRUD methods in React using the API backend
+  getProjects = () => {
+    axios.get(urlPrefix+'/projects')
+    .then(res => {
+      this.setState({projects:res.data})
+    })
+  }
+
+  addProject = (data) => {
+    
+    axios.post(urlPrefix+'/projects',data)
+    .then(res => {
+      this.getProjects()
+    })
+  }
+
+  deleteProject = (id) => {
+    axios.delete(urlPrefix+'/projects/'+id)
+    .then(res => {
+
+      this.getProjects();
+    })
+  }
+
+  updateProject = (id,data) => {
+    axios.put(urlPrefix+'/projects/'+id,data)
+    .then(res => {
+      this.getProjects()
+    })
+  }
+
+  componentDidMount(){
+    this.getProjects()
   }
 
   render(){
@@ -71,7 +109,7 @@ class  App extends Component {
             </div>
             <div className="main">
               <h3>Add a project</h3>
-              <AddProjectForm/>
+              <AddProjectForm addProject={this.addProject} setActiveView={this.setActiveView}/>
             </div>
 
           </View>
@@ -106,7 +144,7 @@ class  App extends Component {
           </View>
 
         </div>
-    );
+    )
   }
 
 

@@ -5,14 +5,27 @@ class  AddProjectForm extends Component {
 	constructor(props){
 		super(props);
 	}
+	
+	handleFormSubmit = (e) => {
+		e.preventDefault()
+		var formData = new FormData(this.addForm)
+		var data = {
+			name:formData.get('name-input'),
+			description:formData.get('description-input'),
+			type_id: parseInt(formData.get('type-input'))
+		}
 
+		this.props.addProject(data)
+		this.props.setActiveView('projects')
+	
+	}
 
   	render(){
 
 
     	return (
 
-	    <form>
+	    <form onSubmit={this.handleFormSubmit} ref={(el) => {this.addForm = el}}>
 	        <div className="form-group">
 	          <label htmlFor="name-input">Name</label>
 	          <input type="text" className="form-control" name="name-input" id="name-input" placeholder="Enter project name"/>
