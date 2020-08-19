@@ -15,9 +15,13 @@ class  AddProjectForm extends Component {
 			type_id: parseInt(formData.get('type-input'))
 		}
 
-		this.props.addProject(data)
-		this.props.setActiveView('projects')
-	
+		var {addProject,setActiveView} = this.props
+		addProject(data)
+		setActiveView('projects')
+
+		// this.props.addProject(data)
+		// this.props.setActiveView('projects')
+		
 	}
 
   	render(){
