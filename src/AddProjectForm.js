@@ -14,7 +14,7 @@ class  AddProjectForm extends Component {
 			description:formData.get('description-input'),
 			type_id: parseInt(formData.get('type-input'))
 		}
-
+		//destructure
 		var {addProject,setActiveView} = this.props
 		addProject(data)
 		setActiveView('projects')

@@ -7,17 +7,33 @@ class  UpdateProjectForm extends Component {
 
 	}
 
+	handleFormSubmit = (e) => {
+		e.preventDefault();
+
+		var formData = new FormData(this.updateForm);
+		var data = {
+			name:formData.get('name-input'),
+			description:formData.get('description-input')
+		}
+		var {updateProject,id,setActiveView} = this.props
+		updateProject(id,data)
+		setActiveView('projects')
+
+	}
+
   	render(){
+		var {name,description} = this.props
+
     	return (
 
-		    <form>
+		    <form onSubmit={this.handleFormSubmit} ref={(el) => {this.updateForm = el}}>
 		        <div className="form-group">
 		          <label htmlFor="name-input">Name</label>
-		          <input type="text" className="form-control" name="name-input" id="name-input" defaultValue="Morning in Waiheke" />
+		          <input type="text" className="form-control" name="name-input" id="name-input" defaultValue={name} />
 		        </div>
 		        <div className="form-group">
 		          <label htmlFor="name-input">Description</label>
-		          <input type="text" className="form-control" name="description-input" id="description-input" defaultValue="Painting by an local artist"/>
+		          <input type="text" className="form-control" name="description-input" id="description-input" defaultValue={description}/>
 		        </div>
 
 		        <div className="form-group">

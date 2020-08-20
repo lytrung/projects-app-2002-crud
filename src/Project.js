@@ -3,8 +3,14 @@ import React, {Component} from 'react'
 class  Project extends Component {
 
 	handleUpdateClick = () => {
-	
-		this.props.setActiveView('update-project')
+		var {setActiveView,setProjectToUpdate,id} = this.props
+		setProjectToUpdate(id)
+		setActiveView('update-project')
+	}
+
+	handleTrashClick = () => {
+		var {deleteProject,id} = this.props;
+		deleteProject(id)
 	}
 
   	render(){
@@ -18,7 +24,7 @@ class  Project extends Component {
 	          <p>
 	            <i className="fas fa-heart"></i>
 	            <i onClick={this.handleUpdateClick} className="fas fa-edit"></i>
-	            <i className="fas fa-trash"></i>
+	            <i onClick={this.handleTrashClick} className="fas fa-trash"></i>
 	          </p>
 	        </div>
 	      </div>
